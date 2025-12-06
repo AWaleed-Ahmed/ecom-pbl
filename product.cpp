@@ -50,6 +50,7 @@ class bst
 {
     node * root;
     
+    //insertion function
     void insertproduct(int id1,string name1, int stock1, double price1)
     {
         node * temp = root;
@@ -86,6 +87,7 @@ class bst
         }
     }
 
+    //searching function
     bool search(int key)//key is id
     {
         if (searchhelper(key,root))
@@ -105,6 +107,7 @@ class bst
         return searchhelper(key,parent->right);
     }
 
+    //removing function
     //this works like key is input then it checks if the target exists and goes to target and then it disconnets the
     //targetroot from itself and then disconnects it from its children and passes it to removehelper function where they are reinserted to the 
     //whole insertproduct function
@@ -149,4 +152,71 @@ class bst
         removehelper(rightone);
         removehelper(leftone);
     }
+
+    //display
+    string inorder(node* root) 
+    {
+    if (!root) return "";
+
+    string result = "";
+    result += inorder(root->left);
+    result += "ID: " + to_string(root->id) +
+              ", Name: " + root->name +
+              ", Price: " + to_string(root->price) +
+              ", Stock: " + to_string(root->stock) + "\n";
+    result += inorder(root->right);
+
+    return result;
+    }
+    string preorder(node* root) 
+    {
+    if (!root) return "";
+
+    string result = "";
+    result += "ID: " + to_string(root->id) +
+              ", Name: " + root->name +
+              ", Price: " + to_string(root->price) +
+              ", Stock: " + to_string(root->stock) + "\n";
+    result += preorder(root->left);
+    result += preorder(root->right);
+
+    return result;
+    }
+    string postorder(node* root) 
+    {
+        if (!root) return "";
+
+        string result = "";
+        result += postorder(root->left);
+        result += postorder(root->right);
+        result += "ID: " + to_string(root->id) +
+                ", Name: " + root->name +
+                ", Price: " + to_string(root->price) +
+                ", Stock: " + to_string(root->stock) + "\n";
+
+        return result;
+    }
+    
+    //price finding
+    int getprice (int key)
+    {
+        int priceofproduct = getpricehelper (key,root);
+        return priceofproduct;
+    }
+    int getpricehelper(int key, node * parent)
+    {
+        node * temp = parent;
+
+        if (!parent)//null check
+        return -1;
+
+        if (parent->id == key)
+        return parent->price;
+        else if (parent->id > key)
+        getpricehelper(key,parent->left);
+        else 
+        getpricehelper(key,parent->right);
+    }
+
+
 };
