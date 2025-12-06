@@ -85,7 +85,8 @@ class bst
             }
         }
     }
-    bool search(int key)
+
+    bool search(int key)//key is id
     {
         if (searchhelper(key,root))
         return true;
@@ -102,5 +103,50 @@ class bst
         return searchhelper(key,parent->left);
         else 
         return searchhelper(key,parent->right);
+    }
+
+    //this works like key is input then it checks if the target exists and goes to target and then it disconnets the
+    //targetroot from itself and then disconnects it from its children and passes it to removehelper function where they are reinserted to the 
+    //whole insertproduct function
+    void removeproduct(int key) 
+    {
+        node * target = root;
+        node * targetparent = nullptr;
+        while (target != nullptr && target->id != key )
+        {
+            targetparent = target;
+            if (target->id > key)
+            target = target->left;
+            else 
+            target = target->right;
+        }
+        if (!target)
+        return;
+        if (targetparent == nullptr) 
+        root = nullptr;
+        else if (targetparent->left == target)
+        targetparent->left = nullptr;
+        else if (targetparent->right == target)
+        targetparent->right = nullptr;
+        node * leftsubtree = target->left;
+        node * rightsubtree = target->right;
+        target->left = nullptr;
+        target->right = nullptr;
+        removehelper(leftsubtree);
+        removehelper(rightsubtree);
+        delete target;
+    }
+    void removehelper(node * parent)
+    {
+        node * temp = parent;
+        if (!temp)
+        return;
+        node * rightone = temp->right;
+        node * leftone = temp->left;
+        temp->left = nullptr;
+        temp->right = nullptr;
+        insertproduct(temp->id,temp->name,temp->stock,temp->price);
+        removehelper(rightone);
+        removehelper(leftone);
     }
 };
