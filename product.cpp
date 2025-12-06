@@ -26,6 +26,9 @@
 //object is gonna be stored in bst
 //waleed
 #include <iostream>
+#include <fstream>
+#include <string.h>
+#include <sstream>
 using namespace std;
 
 class node 
@@ -218,5 +221,68 @@ class bst
         getpricehelper(key,parent->right);
     }
 
+    //saving and loading functions
+    void saveToCSV(const string& filename) 
+    {
+        ofstream file(filename);
+        if (!file.is_open()) {
+            cout << "Error opening file for writing.\n";
+            return;
+        }
 
+        // Optional: write CSV header
+        file << "ID,Name,Price,Stock\n";
+
+        saveInorderCSV(root, file);
+        file.close();
+    }
+
+    void saveInorderCSV(node* parent, ofstream& file) 
+    {
+        if (!parent) return;
+
+        saveInorderCSV(parent->left, file);
+
+        file << parent->id << ","
+            << parent->name << ","
+            << parent->price << ","
+            << parent->stock << "\n";
+
+        saveInorderCSV(parent->right, file);
+    }
+
+    void loadFromCSV(const string& filename) 
+    {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Error opening file for reading.\n";
+        return;
+    }
+
+    string line;
+    bool firstLine = true;
+
+    while (getline(file, line)) {
+        if (firstLine) { // skip header
+            firstLine = false;
+            continue;
+        }
+
+        stringstream ss(line);
+        string idStr, name, priceStr, stockStr;
+
+        getline(ss, idStr, ',');
+        getline(ss, name, ',');
+        getline(ss, priceStr, ',');
+        getline(ss, stockStr, ',');
+
+        int id = stoi(idStr);
+        double price = stod(priceStr);
+        int stock = stoi(stockStr);
+
+        insertproduct(id, name, stock, price);
+    }
+
+    file.close();
+    }
 };
