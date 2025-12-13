@@ -230,7 +230,6 @@ class bst
             return;
         }
 
-        // Optional: write CSV header
         file << "ID,Name,Price,Stock\n";
 
         saveInorderCSV(root, file);
@@ -254,7 +253,8 @@ class bst
     void loadFromCSV(const string& filename) 
     {
     ifstream file(filename);
-    if (!file.is_open()) {
+    if (!file.is_open()) 
+    {
         cout << "Error opening file for reading.\n";
         return;
     }
@@ -263,7 +263,8 @@ class bst
     bool firstLine = true;
 
     while (getline(file, line)) {
-        if (firstLine) { // skip header
+        if (firstLine)
+        { 
             firstLine = false;
             continue;
         }
