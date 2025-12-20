@@ -3,9 +3,10 @@
 #include "../include/product.h"
 #include "../include/cart.h"
 #include "../include/user.h"
+#include <vector>
+
+// Include implementations (temporary until proper compilation)
 #include "product.cpp"
-#include "cart.cpp"
-#include "user.cpp"
 #include "order.cpp"
 #include "graph.cpp"
 
