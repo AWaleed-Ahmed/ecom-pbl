@@ -51,6 +51,7 @@ class node
 };
 class bst
 {
+    public:
     node * root;
     
     //insertion function
