@@ -1,6 +1,9 @@
 #ifndef CART_H
 #define CART_H
 
+// Forward declaration
+class bst;
+
 struct CartNode
 {
     int productId;
@@ -22,7 +25,7 @@ public:
     void removeItem(int id);
     void updateQuantity(int id, int qty);
     void viewCart();
-    double calculateTotal();
+    double calculateTotal(bst &catalog);
     bool isEmpty();
     void clear();
 };
