@@ -15,8 +15,11 @@ struct CartNode
 
 class ShoppingCart
 {
-private:
+public:
     CartNode *head;
+
+private:
+    // kept for potential future use
 
 public:
     ShoppingCart();

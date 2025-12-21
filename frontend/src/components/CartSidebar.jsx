@@ -1,3 +1,5 @@
+import axios from "axios";
+
 function CartSidebar({
   showCart,
   cart,
@@ -5,8 +7,42 @@ function CartSidebar({
   onClose,
   onRemoveFromCart,
   onUpdateQuantity,
+  user,
 }) {
   if (!showCart) return null;
+
+  const handleCheckout = async () => {
+    if (cart.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+
+    try {
+      const orderId = Date.now();
+      const response = await axios.post("http://localhost:3000/api/orders", {
+        userId: user.id,
+        orderId: orderId,
+        items: cart.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+        })),
+      });
+
+      if (response.data.success) {
+        alert(`Order placed successfully! Order ID: ${orderId}`);
+        for (const item of cart) {
+          await axios.delete(
+            `http://localhost:3000/api/cart/${user.id}/${item.id}`
+          );
+        }
+        onClose();
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Failed to place order. Please try again.");
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-dark/50 z-50" onClick={onClose}>
@@ -112,7 +148,10 @@ function CartSidebar({
                     ${cartTotal.toFixed(2)}
                   </span>
                 </div>
-                <button className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 rounded transition-all">
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 rounded transition-all"
+                >
                   CHECKOUT
                 </button>
               </div>

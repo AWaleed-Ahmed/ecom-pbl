@@ -1,46 +1,61 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { runCppProgram } from "../utils/cppHelper.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export const getAllOrders = async (req, res) => {
+  try {
+    const output = await runCppProgram(["list-orders"]);
 
-const DATA_DIR = path.join(__dirname, "../../data");
+    if (output.includes("No orders")) {
+      return res.json([]);
+    }
 
-export const getAllOrders = (req, res) => {
-  const ordersFile = path.join(DATA_DIR, "orders.txt");
+    const lines = output.trim().split("\n");
+    const orders = lines
+      .filter((line) => line.includes("Order ID:"))
+      .map((line) => {
+        // Parse output from C++ Order display
+        const orderIdMatch = line.match(/Order ID: (\d+)/);
+        const totalMatch = line.match(/Total Price: ([\d.]+)/);
+        const statusMatch = line.match(/Status: (\w+)/);
 
-  if (fs.existsSync(ordersFile)) {
-    fs.readFile(ordersFile, "utf8", (err, data) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to read orders" });
-      }
-
-      const lines = data.trim().split("\n");
-      const orders = lines.map((line) => {
-        const [orderId, totalPrice, status] = line.split(" ");
         return {
-          orderId: parseInt(orderId),
-          totalPrice: parseFloat(totalPrice),
-          status: status,
+          orderId: orderIdMatch ? parseInt(orderIdMatch[1]) : 0,
+          totalPrice: totalMatch ? parseFloat(totalMatch[1]) : 0,
+          status: statusMatch ? statusMatch[1] : "Pending",
         };
-      });
+      })
+      .filter((order) => order.orderId > 0);
 
-      res.json(orders);
-    });
-  } else {
-    res.json([]);
+    res.json(orders);
+  } catch (error) {
+    console.error("Error getting orders:", error);
+    res.status(500).json({ error: "Failed to get orders" });
   }
 };
 
-export const createOrder = (req, res) => {
-  const { orderId, productIds, totalPrice, status } = req.body;
+export const createOrder = async (req, res) => {
+  try {
+    const { userId, orderId, items } = req.body;
 
-  const ordersFile = path.join(DATA_DIR, "orders.txt");
-  const newOrder = `${orderId} ${totalPrice} ${status}\n`;
+    if (!items || items.length === 0) {
+      return res.status(400).json({ error: "Cart is empty" });
+    }
 
-  fs.appendFileSync(ordersFile, newOrder);
+    // Build command args: place-order userId orderId productId1 qty1 productId2 qty2 ...
+    const args = ["place-order", userId.toString(), orderId.toString()];
+    items.forEach((item) => {
+      args.push(item.productId.toString());
+      args.push(item.quantity.toString());
+    });
 
-  res.json({ success: true, message: "Order placed successfully" });
+    const output = await runCppProgram(args);
+
+    if (output.includes("Cart is empty")) {
+      return res.status(400).json({ error: "Cart is empty" });
+    }
+
+    res.json({ success: true, message: "Order placed successfully" });
+  } catch (error) {
+    console.error("Error creating order:", error);
+    res.status(500).json({ error: "Failed to create order" });
+  }
 };

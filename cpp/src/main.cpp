@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <ctime>
+#include <iomanip>
 #include "../include/product.h"
 #include "../include/cart.h"
 #include "../include/user.h"
@@ -31,6 +33,7 @@ int main(int argc, char *argv[])
     // Load existing data
     productCatalog.loadProducts("../../data/products.csv");
     userManager.loadUsers("../../data/users.csv");
+    orderQueue.loadOrders();
 
     // Command handling
     if (command == "list-products")
@@ -154,6 +157,74 @@ int main(int argc, char *argv[])
 
         double total = user->cart.calculateTotal(productCatalog);
         cout << "Total: " << total << endl;
+    }
+    else if (command == "place-order" && argc >= 4)
+    {
+        int userId = stoi(argv[2]);
+        int orderId = stoi(argv[3]);
+
+        // Build cart from remaining arguments: productId1 qty1 productId2 qty2 ...
+        vector<pair<int, int>> items; // productId, quantity
+        for (int i = 4; i < argc; i += 2)
+        {
+            if (i + 1 < argc)
+            {
+                int productId = stoi(argv[i]);
+                int quantity = stoi(argv[i + 1]);
+                items.push_back({productId, quantity});
+            }
+        }
+
+        if (items.empty())
+        {
+            cout << "Cart is empty" << endl;
+            return 1;
+        }
+
+        // Calculate total from items
+        double total = 0;
+        Order newOrder;
+        newOrder.orderId = orderId;
+        newOrder.userId = userId;
+        newOrder.status = "pending";
+
+        // Get current date
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
+        char dateStr[11];
+        sprintf(dateStr, "%04d-%02d-%02d",
+                1900 + ltm->tm_year, 1 + ltm->tm_mon, ltm->tm_mday);
+        newOrder.orderDate = dateStr;
+
+        for (auto &item : items)
+        {
+            double price = productCatalog.getprice(item.first);
+            if (price > 0)
+            {
+                total += price * item.second;
+                newOrder.productIds.push_back(item.first);
+            }
+        }
+
+        newOrder.totalPrice = total;
+
+        orderQueue.enqueue(newOrder);
+        orderQueue.saveOrders();
+
+        cout << "Order placed successfully" << endl;
+        cout << "Order ID: " << orderId << endl;
+        cout << "Total: " << total << endl;
+    }
+    else if (command == "list-orders")
+    {
+        if (orderQueue.isEmpty())
+        {
+            cout << "No orders" << endl;
+        }
+        else
+        {
+            orderQueue.displayQueue();
+        }
     }
     else
     {

@@ -162,6 +162,7 @@ function App() {
         onClose={() => setShowCart(false)}
         onRemoveFromCart={removeFromCart}
         onUpdateQuantity={updateQuantity}
+        user={user}
       />
 
       <Hero />
