@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+import Auth from "./pages/Auth";
 import SaleBanner from "./components/SaleBanner";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -10,15 +12,23 @@ function App() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCart, setShowCart] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     fetchProducts();
+
+    // Check for stored user
+    const storedUser = localStorage.getItem("currentUser");
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+      setIsAuthenticated(true);
+    }
   }, []);
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/products");
-      const data = await response.json();
+      const { data } = await axios.get("http://localhost:3000/api/products");
       setProducts(data);
       setLoading(false);
     } catch (error) {
@@ -60,11 +70,28 @@ function App() {
     );
   };
 
+  const handleUserSelect = (user) => {
+    setCurrentUser(user);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem("currentUser");
+    setCart([]);
+  };
+
   const cartTotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Show auth page if not authenticated
+  if (!isAuthenticated) {
+    return <Auth onAuthSuccess={handleUserSelect} />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,7 +99,9 @@ function App() {
 
       <Navbar
         cartCount={cartCount}
+        currentUser={currentUser}
         onCartClick={() => setShowCart(!showCart)}
+        onLogout={handleLogout}
       />
 
       <CartSidebar

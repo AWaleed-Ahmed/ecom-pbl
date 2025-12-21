@@ -16,10 +16,9 @@
 
 body {
   margin: 0;
-  background-color: #f7f7f7;
-  background-color: #EF8D68;
-  color: #3D241B;
-  font-family: 'Roboto', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-dark);
+  font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
