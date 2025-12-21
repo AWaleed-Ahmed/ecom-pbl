@@ -2,8 +2,8 @@ import { LogOut, User } from "lucide-react";
 
 function Navbar({ cartCount, currentUser, onCartClick, onLogout }) {
   return (
-    <nav className="bg-white border-b border-dark/10 sticky top-0 z-50">
-      <div className="container mx-auto px-8 py-4 flex items-center justify-between">
+    <nav className="bg-white sticky top-0 z-50">
+      <div className="container mx-auto py-4 flex items-center justify-between border-b-2 border-b-dark/10">
         <h1 className="text-3xl font-bold text-dark tracking-tight">MOSS</h1>
 
         <div className="flex items-center gap-6">
@@ -17,7 +17,7 @@ function Navbar({ cartCount, currentUser, onCartClick, onLogout }) {
               </div>
               <button
                 onClick={onLogout}
-                className="text-dark/60 hover:text-primary transition-colors"
+                className="text-dark/60 hover:text-primary transition-colors cursor-pointer"
                 title="Logout"
               >
                 <LogOut className="w-5 h-5" />
@@ -27,7 +27,7 @@ function Navbar({ cartCount, currentUser, onCartClick, onLogout }) {
 
           <button
             onClick={onCartClick}
-            className="font-mono text-dark text-lg hover:text-primary transition-colors relative"
+            className="font-mono text-dark text-lg hover:text-primary transition-colors relative cursor-pointer"
           >
             CART
             {cartCount > 0 && (

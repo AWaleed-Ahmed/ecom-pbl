@@ -45,6 +45,8 @@ public:
     int getUserCount();
     void saveUsers(const std::string &filename);
     void loadUsers(const std::string &filename);
+    void saveCarts(const std::string &filename);
+    void loadCarts(const std::string &filename);
 };
 
 #endif

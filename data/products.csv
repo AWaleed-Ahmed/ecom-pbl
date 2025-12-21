@@ -1,101 +1,101 @@
 ID,Name,Price,Stock,Category,Description
-1,Product 1,1.00,13,Electronics,Auto-generated sample product #1
-2,Product 2,2.00,26,Books,Auto-generated sample product #2
-3,Product 3,3.00,39,Home,Auto-generated sample product #3
-4,Product 4,4.00,52,Sports,Auto-generated sample product #4
-5,Product 5,5.00,65,Beauty,Auto-generated sample product #5
-6,Product 6,6.00,78,Toys,Auto-generated sample product #6
-7,Product 7,7.00,91,Clothing,Auto-generated sample product #7
-8,Product 8,8.00,104,Grocery,Auto-generated sample product #8
-9,Product 9,9.00,117,Automotive,Auto-generated sample product #9
-10,Product 10,10.00,130,Tools,Auto-generated sample product #10
-11,Product 11,11.00,143,Electronics,Auto-generated sample product #11
-12,Product 12,12.00,156,Books,Auto-generated sample product #12
-13,Product 13,13.00,169,Home,Auto-generated sample product #13
-14,Product 14,14.00,182,Sports,Auto-generated sample product #14
-15,Product 15,15.00,195,Beauty,Auto-generated sample product #15
-16,Product 16,16.00,208,Toys,Auto-generated sample product #16
-17,Product 17,17.00,221,Clothing,Auto-generated sample product #17
-18,Product 18,18.00,234,Grocery,Auto-generated sample product #18
-19,Product 19,19.00,247,Automotive,Auto-generated sample product #19
-20,Product 20,20.00,260,Tools,Auto-generated sample product #20
-21,Product 21,21.00,273,Electronics,Auto-generated sample product #21
-22,Product 22,22.00,286,Books,Auto-generated sample product #22
-23,Product 23,23.00,299,Home,Auto-generated sample product #23
-24,Product 24,24.00,312,Sports,Auto-generated sample product #24
-25,Product 25,25.00,325,Beauty,Auto-generated sample product #25
-26,Product 26,26.00,338,Toys,Auto-generated sample product #26
-27,Product 27,27.00,351,Clothing,Auto-generated sample product #27
-28,Product 28,28.00,364,Grocery,Auto-generated sample product #28
-29,Product 29,29.00,377,Automotive,Auto-generated sample product #29
-30,Product 30,30.00,390,Tools,Auto-generated sample product #30
-31,Product 31,31.00,3,Electronics,Auto-generated sample product #31
-32,Product 32,32.00,16,Books,Auto-generated sample product #32
-33,Product 33,33.00,29,Home,Auto-generated sample product #33
-34,Product 34,34.00,42,Sports,Auto-generated sample product #34
-35,Product 35,35.00,55,Beauty,Auto-generated sample product #35
-36,Product 36,36.00,68,Toys,Auto-generated sample product #36
-37,Product 37,37.00,81,Clothing,Auto-generated sample product #37
-38,Product 38,38.00,94,Grocery,Auto-generated sample product #38
-39,Product 39,39.00,107,Automotive,Auto-generated sample product #39
-40,Product 40,40.00,120,Tools,Auto-generated sample product #40
-41,Product 41,41.00,133,Electronics,Auto-generated sample product #41
-42,Product 42,42.00,146,Books,Auto-generated sample product #42
-43,Product 43,43.00,159,Home,Auto-generated sample product #43
-44,Product 44,44.00,172,Sports,Auto-generated sample product #44
-45,Product 45,45.00,185,Beauty,Auto-generated sample product #45
-46,Product 46,46.00,198,Toys,Auto-generated sample product #46
-47,Product 47,47.00,11,Clothing,Auto-generated sample product #47
-48,Product 48,48.00,24,Grocery,Auto-generated sample product #48
-49,Product 49,49.00,37,Automotive,Auto-generated sample product #49
-50,Product 50,50.00,50,Tools,Auto-generated sample product #50
-51,Product 51,51.00,63,Electronics,Auto-generated sample product #51
-52,Product 52,52.00,76,Books,Auto-generated sample product #52
-53,Product 53,53.00,89,Home,Auto-generated sample product #53
-54,Product 54,54.00,102,Sports,Auto-generated sample product #54
-55,Product 55,55.00,115,Beauty,Auto-generated sample product #55
-56,Product 56,56.00,128,Toys,Auto-generated sample product #56
-57,Product 57,57.00,141,Clothing,Auto-generated sample product #57
-58,Product 58,58.00,154,Grocery,Auto-generated sample product #58
-59,Product 59,59.00,167,Automotive,Auto-generated sample product #59
-60,Product 60,60.00,180,Tools,Auto-generated sample product #60
-61,Product 61,61.00,193,Electronics,Auto-generated sample product #61
-62,Product 62,62.00,206,Books,Auto-generated sample product #62
-63,Product 63,63.00,219,Home,Auto-generated sample product #63
-64,Product 64,64.00,232,Sports,Auto-generated sample product #64
-65,Product 65,65.00,245,Beauty,Auto-generated sample product #65
-66,Product 66,66.00,258,Toys,Auto-generated sample product #66
-67,Product 67,67.00,271,Clothing,Auto-generated sample product #67
-68,Product 68,68.00,284,Grocery,Auto-generated sample product #68
-69,Product 69,69.00,297,Automotive,Auto-generated sample product #69
-70,Product 70,70.00,310,Tools,Auto-generated sample product #70
-71,Product 71,71.00,323,Electronics,Auto-generated sample product #71
-72,Product 72,72.00,336,Books,Auto-generated sample product #72
-73,Product 73,73.00,349,Home,Auto-generated sample product #73
-74,Product 74,74.00,362,Sports,Auto-generated sample product #74
-75,Product 75,75.00,375,Beauty,Auto-generated sample product #75
-76,Product 76,76.00,388,Toys,Auto-generated sample product #76
-77,Product 77,77.00,1,Clothing,Auto-generated sample product #77
-78,Product 78,78.00,14,Grocery,Auto-generated sample product #78
-79,Product 79,79.00,27,Automotive,Auto-generated sample product #79
-80,Product 80,80.00,40,Tools,Auto-generated sample product #80
-81,Product 81,81.00,53,Electronics,Auto-generated sample product #81
-82,Product 82,82.00,66,Books,Auto-generated sample product #82
-83,Product 83,83.00,79,Home,Auto-generated sample product #83
-84,Product 84,84.00,92,Sports,Auto-generated sample product #84
-85,Product 85,85.00,105,Beauty,Auto-generated sample product #85
-86,Product 86,86.00,118,Toys,Auto-generated sample product #86
-87,Product 87,87.00,131,Clothing,Auto-generated sample product #87
-88,Product 88,88.00,144,Grocery,Auto-generated sample product #88
-89,Product 89,89.00,157,Automotive,Auto-generated sample product #89
-90,Product 90,90.00,170,Tools,Auto-generated sample product #90
-91,Product 91,91.00,183,Electronics,Auto-generated sample product #91
-92,Product 92,92.00,196,Books,Auto-generated sample product #92
-93,Product 93,93.00,9,Home,Auto-generated sample product #93
-94,Product 94,94.00,22,Sports,Auto-generated sample product #94
-95,Product 95,95.00,35,Beauty,Auto-generated sample product #95
-96,Product 96,96.00,48,Toys,Auto-generated sample product #96
-97,Product 97,97.00,61,Clothing,Auto-generated sample product #97
-98,Product 98,98.00,74,Grocery,Auto-generated sample product #98
-99,Product 99,99.00,87,Automotive,Auto-generated sample product #99
-100,Product 100,100.00,100,Tools,Auto-generated sample product #100
+1,Wireless Headphones,29.99,13,Electronics,Premium Bluetooth wireless headphones with noise cancellation
+2,The Great Gatsby,12.99,26,Books,Classic American novel by F. Scott Fitzgerald
+3,Cotton Bed Sheets Set,34.99,39,Home,Soft 400-thread-count bed sheets
+4,Tennis Racket Pro,89.99,52,Sports,Professional tennis racket for competitive play
+5,Luxury Face Cream,45.99,65,Beauty,Anti-aging moisturizing face cream
+6,LEGO Building Set,54.99,78,Toys,Creative building blocks for kids ages 6+
+7,Classic Denim Jeans,49.99,91,Clothing,Comfortable slim-fit blue jeans
+8,Organic Green Tea,15.99,104,Grocery,Premium organic loose leaf green tea
+9,Car Floor Mats,39.99,117,Automotive,All-weather rubber car floor mats
+10,Cordless Drill Set,129.99,130,Tools,Professional 20V cordless drill with accessories
+11,Smart Watch Pro,199.99,143,Electronics,Fitness tracking smartwatch with heart rate monitor
+12,Harry Potter Box Set,79.99,156,Books,Complete collection of Harry Potter novels
+13,Ceramic Coffee Mugs,24.99,169,Home,Set of 4 modern ceramic coffee mugs
+14,Yoga Mat Premium,35.99,182,Sports,Extra-thick non-slip yoga mat
+15,Organic Shampoo,18.99,195,Beauty,Sulfate-free natural hair care shampoo
+16,Remote Control Car,44.99,208,Toys,High-speed RC racing car for kids
+17,Winter Puffer Jacket,119.99,221,Clothing,Warm insulated winter coat
+18,Pasta Variety Pack,14.99,234,Grocery,Assorted Italian pasta shapes
+19,Engine Oil 5W-30,32.99,247,Automotive,Synthetic motor oil for all engines
+20,Socket Wrench Set,69.99,260,Tools,48-piece professional socket set
+21,4K Smart TV 55 inch,499.99,273,Electronics,Ultra HD smart television with streaming apps
+22,Mystery Thriller Novel,16.99,286,Books,Bestselling suspense thriller
+23,Decorative Table Lamp,54.99,299,Home,Modern LED desk lamp with adjustable brightness
+24,Basketball Official Size,29.99,312,Sports,Professional indoor/outdoor basketball
+25,Vitamin C Serum,28.99,325,Beauty,Brightening facial serum with antioxidants
+26,Plush Teddy Bear,19.99,338,Toys,Soft cuddly teddy bear for children
+27,Summer Floral Dress,39.99,351,Clothing,Lightweight floral print sundress
+28,Premium Coffee Beans,22.99,364,Grocery,Dark roast whole coffee beans
+29,Car Phone Mount,24.99,377,Automotive,Universal magnetic phone holder for car
+30,Power Drill Bits Set,34.99,390,Tools,50-piece titanium drill bit collection
+31,Laptop Stand Aluminum,49.99,3,Electronics,Ergonomic adjustable laptop stand
+32,Cookbook Mediterranean,29.99,16,Books,Healthy Mediterranean diet recipes
+33,Kitchen Knife Set,89.99,29,Home,Professional 8-piece chef knife collection
+34,Golf Club Driver,249.99,42,Sports,Titanium golf driver for distance
+35,Makeup Brush Set,42.99,55,Beauty,Professional 12-piece cosmetic brush set
+36,Wooden Puzzle 1000pc,24.99,68,Toys,Challenging jigsaw puzzle for adults
+37,Leather Belt Classic,34.99,81,Clothing,Genuine leather dress belt
+38,Snack Mix Variety Box,18.99,94,Grocery,Assorted healthy snack packs
+39,Car Wax Polish,27.99,107,Automotive,Premium ceramic coating car wax
+40,Hammer Multi-Tool,44.99,120,Tools,16-in-1 multifunctional hammer
+41,Bluetooth Speaker Portable,59.99,133,Electronics,Waterproof wireless speaker with bass
+42,Science Fiction Collection,34.99,146,Books,Anthology of classic sci-fi stories
+43,Throw Pillow Set,32.99,159,Home,Decorative cushion covers set of 4
+44,Running Shoes Performance,89.99,172,Sports,Lightweight marathon running shoes
+45,Hair Styling Tool Kit,74.99,185,Beauty,Professional hair dryer and curler set
+46,Action Figure Superhero,24.99,198,Toys,Collectible poseable superhero toy
+47,Hoodie Cotton Blend,44.99,11,Clothing,Comfortable pullover sweatshirt
+48,Olive Oil Extra Virgin,19.99,24,Grocery,Cold-pressed premium olive oil
+49,Tire Pressure Gauge,16.99,37,Automotive,Digital tire pressure monitor
+50,Screwdriver Set Pro,39.99,50,Tools,Magnetic precision screwdriver kit
+51,Gaming Mouse RGB,64.99,63,Electronics,High DPI programmable gaming mouse
+52,Self-Help Motivation Book,19.99,76,Books,Bestselling personal development guide
+53,Wall Art Canvas Print,44.99,89,Home,Modern abstract artwork for home decor
+54,Swimming Goggles Pro,29.99,102,Sports,Anti-fog competitive swim goggles
+55,Nail Polish Collection,34.99,115,Beauty,Trendy nail lacquer 12-color set
+56,Board Game Strategy,39.99,128,Toys,Family-friendly strategy board game
+57,Sneakers Athletic White,54.99,141,Clothing,Classic white canvas sneakers
+58,Honey Organic Raw,16.99,154,Grocery,Pure unfiltered natural honey
+59,Car Air Freshener,8.99,167,Automotive,Long-lasting vanilla scent diffuser
+60,Pliers Multi-Purpose,22.99,180,Tools,Heavy-duty locking pliers
+61,USB-C Charging Cable,14.99,193,Electronics,Fast charging braided USB cable
+62,Travel Guide Europe,24.99,206,Books,Comprehensive European travel book
+63,Stainless Steel Cookware,79.99,219,Home,Non-stick frying pan set
+64,Dumbbell Weight Set,119.99,232,Sports,Adjustable home gym dumbbells
+65,Perfume Floral Scent,59.99,245,Beauty,Elegant women's fragrance
+66,Doll House Wooden,89.99,258,Toys,3-story dollhouse with furniture
+67,Graphic T-Shirt Cotton,19.99,271,Clothing,Printed casual crew neck tee
+68,Dark Chocolate Bar,7.99,284,Grocery,70% cocoa artisan chocolate
+69,Jumper Cables Heavy Duty,29.99,297,Automotive,20-foot emergency jump leads
+70,Tape Measure 25ft,12.99,310,Tools,Retractable measuring tape
+71,Wireless Earbuds Pro,89.99,323,Electronics,True wireless earbuds with charging case
+72,Biography Historical,22.99,336,Books,Inspiring life story of world leader
+73,Bath Towel Set Luxury,44.99,349,Home,Ultra-soft Egyptian cotton towels
+74,Soccer Ball Official,34.99,362,Sports,FIFA-approved match football
+75,Facial Mask Sheet Pack,24.99,375,Beauty,Hydrating Korean skincare masks
+76,Toy Train Set Electric,69.99,388,Toys,Battery-powered train track set
+77,Cardigan Wool Knit,54.99,1,Clothing,Cozy button-up sweater
+78,Cereal Breakfast Pack,12.99,14,Grocery,Whole grain cereal variety pack
+79,Windshield Wipers,24.99,27,Automotive,All-season replacement wiper blades
+80,Level Laser Tool,89.99,40,Tools,Self-leveling laser level for construction
+81,Tablet 10-inch Android,179.99,53,Electronics,HD touchscreen tablet with stylus
+82,Children's Picture Book,14.99,66,Books,Colorful illustrated bedtime stories
+83,Area Rug Modern Design,99.99,79,Home,Soft living room carpet 5x7 ft
+84,Camping Tent 4-Person,149.99,92,Sports,Waterproof family camping tent
+85,Lip Gloss Set,22.99,105,Beauty,Shimmery lip gloss 6-pack
+86,Building Blocks 200pc,34.99,118,Toys,Educational construction toy set
+87,Scarf Wool Winter,29.99,131,Clothing,Warm plaid knitted scarf
+88,Granola Bar Box,18.99,144,Grocery,Protein-packed energy bars
+89,Steering Wheel Cover,19.99,157,Automotive,Leather steering wheel protector
+90,Utility Knife Folding,24.99,170,Tools,Sharp pocket knife with blade lock
+91,Keyboard Mechanical RGB,129.99,183,Electronics,Gaming keyboard with tactile switches
+92,Poetry Anthology Classic,17.99,196,Books,Collection of timeless poems
+93,Mirror Decorative Wall,64.99,9,Home,Round gold-framed wall mirror
+94,Bicycle Mountain 26-inch,399.99,22,Sports,All-terrain mountain bike
+95,Body Lotion Moisturizing,16.99,35,Beauty,Hydrating body cream with shea butter
+96,Stuffed Animal Unicorn,24.99,48,Toys,Soft plush unicorn toy
+97,Socks Cotton Pack of 6,14.99,61,Clothing,Breathable ankle socks
+98,Chips Variety Snack Pack,11.99,74,Grocery,Assorted potato chips multipack
+99,Seat Covers Universal,49.99,87,Automotive,Protective car seat cover set
+100,Flashlight LED Tactical,34.99,100,Tools,Rechargeable high-lumen flashlight

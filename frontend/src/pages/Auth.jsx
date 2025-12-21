@@ -134,13 +134,13 @@ function Auth({ onAuthSuccess }) {
                 <div className="space-y-4">
                   <button
                     onClick={handleLogin}
-                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 rounded-lg transition-all"
+                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 rounded-lg transition-all cursor-pointer"
                   >
                     SELECT EXISTING USER
                   </button>
                   <button
                     onClick={() => setIsLogin(false)}
-                    className="w-full bg-background/10 hover:bg-background/20 text-background font-medium py-4 rounded-lg transition-all border border-background/20"
+                    className="w-full bg-background/10 hover:bg-background/20 text-background font-medium py-4 rounded-lg transition-all border border-background/20 cursor-pointer"
                   >
                     CREATE NEW ACCOUNT
                   </button>
@@ -182,7 +182,7 @@ function Auth({ onAuthSuccess }) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-6"
                   >
                     {loading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
                   </button>
@@ -194,7 +194,7 @@ function Auth({ onAuthSuccess }) {
                       setError("");
                       setFormData({ name: "", email: "" });
                     }}
-                    className="w-full text-background/60 hover:text-background transition-colors text-sm"
+                    className="w-full text-background/60 hover:text-background transition-colors text-sm cursor-pointer"
                   >
                     Already have an account? Login
                   </button>
@@ -206,7 +206,7 @@ function Auth({ onAuthSuccess }) {
               <div className="mb-6">
                 <button
                   onClick={() => setShowUserList(false)}
-                  className="text-background/60 hover:text-background text-sm mb-4"
+                  className="text-background/60 hover:text-background text-sm mb-4 cursor-pointer"
                 >
                   ← Back
                 </button>
@@ -220,7 +220,7 @@ function Auth({ onAuthSuccess }) {
                   <button
                     key={user.userId}
                     onClick={() => handleUserSelect(user)}
-                    className="w-full text-left p-4 bg-background/5 hover:bg-background/10 rounded-lg transition-colors border border-background/10 hover:border-primary"
+                    className="w-full text-left p-4 bg-background/5 hover:bg-background/10 rounded-lg transition-colors border border-background/10 hover:border-primary cursor-pointer"
                   >
                     <div className="font-semibold text-background">
                       {user.name}

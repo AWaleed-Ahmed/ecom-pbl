@@ -23,7 +23,7 @@
 class Order
 {
 public:
-    int orderId;
+    long long orderId;
     int userId;
     std::vector<int> productIds;
     double totalPrice;
@@ -184,7 +184,7 @@ public:
             while (std::getline(ss, token, ','))
             {
                 if (fieldIndex == 0)
-                    newOrder.orderId = std::stoi(token);
+                    newOrder.orderId = std::stoll(token);
                 else if (fieldIndex == 1)
                     newOrder.userId = std::stoi(token);
                 else if (fieldIndex == 2)

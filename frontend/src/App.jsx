@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import CartSidebar from "./components/CartSidebar";
 import ProductGrid from "./components/ProductGrid";
+import Recommendations from "./components/Recommendations";
+import Footer from "./components/Footer";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -36,6 +38,7 @@ function App() {
       // Convert backend cart format to frontend format
       const cartItems = data.items.map((item) => ({
         id: item.productId,
+        productId: item.productId,
         name: item.name,
         price: item.price,
         quantity: item.quantity,
@@ -162,18 +165,32 @@ function App() {
         onClose={() => setShowCart(false)}
         onRemoveFromCart={removeFromCart}
         onUpdateQuantity={updateQuantity}
-        user={user}
+        user={currentUser}
       />
 
       <Hero />
 
-      <main className="container mx-auto px-12 pb-16">
+      <main className="container mx-auto pb-16">
         <ProductGrid
           products={products}
           loading={loading}
           onAddToCart={addToCart}
         />
       </main>
+
+      {products.length > 0 && (
+        <Recommendations
+          productId={
+            cart.length > 0
+              ? cart[cart.length - 1]?.productId || cart[cart.length - 1]?.id
+              : 1
+          }
+          products={products}
+          onAddToCart={addToCart}
+        />
+      )}
+
+      <Footer />
     </div>
   );
 }

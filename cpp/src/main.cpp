@@ -33,7 +33,9 @@ int main(int argc, char *argv[])
     // Load existing data
     productCatalog.loadProducts("../../data/products.csv");
     userManager.loadUsers("../../data/users.csv");
+    userManager.loadCarts("../../data/carts.csv");
     orderQueue.loadOrders();
+    recommendationGraph.loadGraph("../../data/recommendations.csv");
 
     // Command handling
     if (command == "list-products")
@@ -112,6 +114,7 @@ int main(int argc, char *argv[])
         }
 
         user->cart.addItem(productId, quantity);
+        userManager.saveCarts("../../data/carts.csv");
         cout << "Item added to cart successfully" << endl;
     }
     else if (command == "remove-from-cart" && argc >= 4)
@@ -128,6 +131,7 @@ int main(int argc, char *argv[])
         }
 
         user->cart.removeItem(productId);
+        userManager.saveCarts("../../data/carts.csv");
         cout << "Item removed from cart successfully" << endl;
     }
     else if (command == "clear-cart" && argc >= 3)
@@ -142,6 +146,7 @@ int main(int argc, char *argv[])
         }
 
         user->cart.clear();
+        userManager.saveCarts("../../data/carts.csv");
         cout << "Cart cleared successfully" << endl;
     }
     else if (command == "cart-total" && argc >= 3)
@@ -161,7 +166,7 @@ int main(int argc, char *argv[])
     else if (command == "place-order" && argc >= 4)
     {
         int userId = stoi(argv[2]);
-        int orderId = stoi(argv[3]);
+        long long orderId = stoll(argv[3]);
 
         // Build cart from remaining arguments: productId1 qty1 productId2 qty2 ...
         vector<pair<int, int>> items; // productId, quantity

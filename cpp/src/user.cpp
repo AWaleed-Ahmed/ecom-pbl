@@ -223,3 +223,77 @@ void UserManager::loadUsers(const std::string &filename)
     file.close();
     std::cout << "Loaded " << count << " users from " << filename << "\n";
 }
+
+void UserManager::saveCarts(const std::string &filename)
+{
+    std::ofstream file(filename);
+    if (!file.is_open())
+    {
+        std::cout << "Error opening carts file for writing\n";
+        return;
+    }
+
+    file << "UserID,ProductID,Quantity\n";
+
+    for (int i = 0; i < TABLE_SIZE; i++)
+    {
+        UserNode *current = hashTable[i];
+        while (current)
+        {
+            CartNode *cartItem = current->user.cart.head;
+            while (cartItem)
+            {
+                file << current->user.userId << ","
+                     << cartItem->productId << ","
+                     << cartItem->quantity << "\n";
+                cartItem = cartItem->next;
+            }
+            current = current->next;
+        }
+    }
+
+    file.close();
+}
+
+void UserManager::loadCarts(const std::string &filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        return; // No carts file yet
+    }
+
+    std::string line;
+    bool firstLine = true;
+
+    while (std::getline(file, line))
+    {
+        if (firstLine)
+        {
+            firstLine = false;
+            continue; // Skip header
+        }
+
+        std::stringstream ss(line);
+        std::string userIdStr, productIdStr, quantityStr;
+
+        std::getline(ss, userIdStr, ',');
+        std::getline(ss, productIdStr, ',');
+        std::getline(ss, quantityStr, ',');
+
+        if (!userIdStr.empty() && !productIdStr.empty() && !quantityStr.empty())
+        {
+            int userId = std::stoi(userIdStr);
+            int productId = std::stoi(productIdStr);
+            int quantity = std::stoi(quantityStr);
+
+            User *user = getUser(userId);
+            if (user)
+            {
+                user->cart.addItem(productId, quantity);
+            }
+        }
+    }
+
+    file.close();
+}

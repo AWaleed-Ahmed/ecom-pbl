@@ -8,6 +8,7 @@ import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import recommendationRoutes from "./routes/recommendationRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +26,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/recommendations", recommendationRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

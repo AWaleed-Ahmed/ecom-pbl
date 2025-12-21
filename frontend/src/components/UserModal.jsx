@@ -105,7 +105,7 @@ function UserModal({ isOpen, onClose, onUserSelect }) {
           </h2>
           <button
             onClick={onClose}
-            className="text-dark/60 hover:text-dark transition-colors"
+            className="text-dark/60 hover:text-dark transition-colors cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
@@ -129,7 +129,7 @@ function UserModal({ isOpen, onClose, onUserSelect }) {
                     <button
                       key={user.userId}
                       onClick={() => handleUserSelect(user)}
-                      className="w-full text-left p-4 bg-background hover:bg-primary/10 rounded-lg transition-colors border border-dark/5"
+                      className="w-full text-left p-4 bg-background hover:bg-primary/10 transition-colors border border-dark/5 cursor-pointer"
                     >
                       <div className="font-semibold text-dark">{user.name}</div>
                       <div className="text-sm text-dark/60">{user.email}</div>
@@ -143,7 +143,7 @@ function UserModal({ isOpen, onClose, onUserSelect }) {
 
               <button
                 onClick={() => setShowCreateForm(true)}
-                className="w-full bg-primary hover:bg-primary/90 text-dark font-bold py-3 rounded transition-all"
+                className="w-full bg-primary hover:bg-primary/90 text-dark font-bold py-3 transition-all cursor-pointer"
               >
                 CREATE NEW ACCOUNT
               </button>
@@ -168,7 +168,7 @@ function UserModal({ isOpen, onClose, onUserSelect }) {
                     onChange={(e) =>
                       setNewUser({ ...newUser, name: e.target.value })
                     }
-                    className="w-full px-4 py-2 border border-dark/20 rounded focus:outline-none focus:border-primary"
+                    className="w-full px-4 py-2 border border-dark/20 focus:outline-none focus:border-primary"
                     placeholder="Your name"
                     required
                   />
@@ -184,7 +184,7 @@ function UserModal({ isOpen, onClose, onUserSelect }) {
                     onChange={(e) =>
                       setNewUser({ ...newUser, email: e.target.value })
                     }
-                    className="w-full px-4 py-2 border border-dark/20 rounded focus:outline-none focus:border-primary"
+                    className="w-full px-4 py-2 border border-dark/20 focus:outline-none focus:border-primary"
                     placeholder="your@email.com"
                     required
                   />
@@ -199,14 +199,14 @@ function UserModal({ isOpen, onClose, onUserSelect }) {
                     setError("");
                     setNewUser({ userId: "", name: "", email: "" });
                   }}
-                  className="flex-1 bg-background hover:bg-dark/5 text-dark font-bold py-3 rounded transition-all"
+                  className="flex-1 bg-background hover:bg-dark/5 text-dark font-bold py-3 transition-all cursor-pointer"
                 >
                   BACK
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-primary hover:bg-primary/90 text-dark font-bold py-3 rounded transition-all disabled:opacity-50"
+                  className="flex-1 bg-primary hover:bg-primary/90 text-dark font-bold py-3 transition-all disabled:opacity-50 cursor-pointer"
                 >
                   {loading ? "CREATING..." : "CREATE"}
                 </button>

@@ -36,6 +36,8 @@ export const createOrder = async (req, res) => {
   try {
     const { userId, orderId, items } = req.body;
 
+    console.log("Creating order:", { userId, orderId, items });
+
     if (!items || items.length === 0) {
       return res.status(400).json({ error: "Cart is empty" });
     }
@@ -47,7 +49,9 @@ export const createOrder = async (req, res) => {
       args.push(item.quantity.toString());
     });
 
+    console.log("Running C++ command with args:", args);
     const output = await runCppProgram(args);
+    console.log("C++ output:", output);
 
     if (output.includes("Cart is empty")) {
       return res.status(400).json({ error: "Cart is empty" });
@@ -56,6 +60,8 @@ export const createOrder = async (req, res) => {
     res.json({ success: true, message: "Order placed successfully" });
   } catch (error) {
     console.error("Error creating order:", error);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
     res.status(500).json({ error: "Failed to create order" });
   }
 };

@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section className="container mx-auto px-12 py-16">
+    <section className="container mx-auto py-16">
       <h2 className="text-5xl md:text-6xl text-dark leading-none mb-8">
         DISCOVER
         <br />

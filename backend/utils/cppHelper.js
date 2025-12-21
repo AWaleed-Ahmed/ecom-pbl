@@ -13,6 +13,10 @@ const EXECUTABLE = path.join(SRC_DIR, "main.exe");
 
 export function runCppProgram(args = []) {
   return new Promise((resolve, reject) => {
+    console.log("runCppProgram - Executable path:", EXECUTABLE);
+    console.log("runCppProgram - CWD:", SRC_DIR);
+    console.log("runCppProgram - Args:", args);
+
     if (!fs.existsSync(EXECUTABLE)) {
       return reject(
         new Error("C++ executable not found. Please compile first.")
@@ -27,18 +31,27 @@ export function runCppProgram(args = []) {
     let errorOutput = "";
 
     cpp.stdout.on("data", (data) => {
-      output += data.toString();
+      const str = data.toString();
+      console.log("C++ stdout:", str);
+      output += str;
     });
 
     cpp.stderr.on("data", (data) => {
-      errorOutput += data.toString();
+      const str = data.toString();
+      console.error("C++ stderr:", str);
+      errorOutput += str;
     });
 
     cpp.on("error", (err) => {
+      console.error("spawn error:", err);
       reject(new Error(`Failed to execute C++ program: ${err.message}`));
     });
 
     cpp.on("close", (code) => {
+      console.log("C++ process closed with code:", code);
+      console.log("Final output:", output);
+      console.log("Final error output:", errorOutput);
+
       if (code !== 0) {
         reject(
           new Error(`C++ program exited with code ${code}: ${errorOutput}`)

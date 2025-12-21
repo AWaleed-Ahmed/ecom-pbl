@@ -19,43 +19,60 @@ function CartSidebar({
 
     try {
       const orderId = Date.now();
+      console.log("Placing order:", {
+        userId: user.userId,
+        orderId,
+        items: cart,
+      });
+
       const response = await axios.post("http://localhost:3000/api/orders", {
-        userId: user.id,
+        userId: user.userId,
         orderId: orderId,
         items: cart.map((item) => ({
-          productId: item.id,
+          productId: item.productId || item.id,
           quantity: item.quantity,
         })),
       });
 
+      console.log("Order response:", response.data);
+
       if (response.data.success) {
         alert(`Order placed successfully! Order ID: ${orderId}`);
+        // Clear cart from backend
         for (const item of cart) {
           await axios.delete(
-            `http://localhost:3000/api/cart/${user.id}/${item.id}`
+            `http://localhost:3000/api/cart/${user.userId}/remove/${
+              item.productId || item.id
+            }`
           );
         }
         onClose();
         window.location.reload();
+      } else {
+        alert("Order placement failed. Please try again.");
       }
     } catch (error) {
       console.error("Checkout error:", error);
-      alert("Failed to place order. Please try again.");
+      console.error("Error response:", error.response?.data);
+      alert(
+        `Failed to place order: ${
+          error.response?.data?.error || error.message || "Unknown error"
+        }`
+      );
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-dark/50 z-50" onClick={onClose}>
+    <div className="fixed inset-0 bg-dark/20 z-40" onClick={onClose}>
       <div
-        className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl overflow-y-auto"
+        className="absolute left-0 top-17 bottom-0 w-full max-w-md bg-white shadow-2xl overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-dark">YOUR CART</h2>
+          <div className="flex items-center justify-end mb-6">
             <button
               onClick={onClose}
-              className="text-dark hover:text-primary transition-colors"
+              className="text-dark hover:text-primary transition-colors cursor-pointer"
             >
               <svg
                 className="w-6 h-6"
@@ -86,20 +103,20 @@ function CartSidebar({
                 {cart.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-background rounded-lg p-4 border border-dark/5"
+                    className="bg-background p-4 border border-dark/5"
                   >
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-dark uppercase text-sm">
+                        <h3 className="text-4xl text-dark uppercase">
                           {item.name}
                         </h3>
-                        <p className="text-sm font-mono text-primary mt-1">
-                          ${item.price.toFixed(2)}
+                        <p className="text-2xl font-mono text-primary mt-2">
+                          £{item.price.toFixed(2)}
                         </p>
                       </div>
                       <button
                         onClick={() => onRemoveFromCart(item.id)}
-                        className="text-dark/40 hover:text-primary transition-colors"
+                        className="text-dark/40 hover:text-primary transition-colors cursor-pointer"
                       >
                         <svg
                           className="w-5 h-5"
@@ -120,7 +137,7 @@ function CartSidebar({
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => onUpdateQuantity(item.id, -1)}
-                        className="w-8 h-8 bg-white hover:bg-dark/5 rounded flex items-center justify-center transition-colors border border-dark/10"
+                        className="w-8 h-8 bg-white hover:bg-dark/5 flex items-center justify-center transition-colors border border-dark/10 cursor-pointer"
                       >
                         -
                       </button>
@@ -129,12 +146,12 @@ function CartSidebar({
                       </span>
                       <button
                         onClick={() => onUpdateQuantity(item.id, 1)}
-                        className="w-8 h-8 bg-white hover:bg-dark/5 rounded flex items-center justify-center transition-colors border border-dark/10"
+                        className="w-8 h-8 bg-white hover:bg-dark/5 flex items-center justify-center transition-colors border border-dark/10 cursor-pointer"
                       >
                         +
                       </button>
                       <span className="ml-auto font-mono font-semibold text-dark">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        £{(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -145,12 +162,12 @@ function CartSidebar({
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-lg font-bold text-dark">TOTAL</span>
                   <span className="text-2xl font-bold text-dark font-mono">
-                    ${cartTotal.toFixed(2)}
+                    £{cartTotal.toFixed(2)}
                   </span>
                 </div>
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 rounded transition-all"
+                  className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 transition-all cursor-pointer"
                 >
                   CHECKOUT
                 </button>

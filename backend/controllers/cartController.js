@@ -9,7 +9,7 @@ export const getCart = async (req, res) => {
 
     // Parse C++ output
     const lines = output.trim().split("\n");
-    const items = [];
+    const cartItems = [];
 
     for (const line of lines) {
       if (line.includes("Product ID") && line.includes("Quantity")) {
@@ -21,11 +21,37 @@ export const getCart = async (req, res) => {
       if (line.includes("|")) {
         const parts = line.split("|").map((p) => p.trim());
         if (parts.length >= 2 && !isNaN(parts[0])) {
-          items.push({
+          cartItems.push({
             productId: parseInt(parts[0]),
             quantity: parseInt(parts[1]),
           });
         }
+      }
+    }
+
+    // Get product details for each cart item
+    const items = [];
+    for (const item of cartItems) {
+      try {
+        const productOutput = await runCppProgram([
+          "search-product",
+          item.productId.toString(),
+        ]);
+
+        // Parse product details from output
+        const nameMatch = productOutput.match(/Name: (.+)/);
+        const priceMatch = productOutput.match(/Price: ([\d.]+)/);
+
+        if (nameMatch && priceMatch) {
+          items.push({
+            productId: item.productId,
+            quantity: item.quantity,
+            name: nameMatch[1],
+            price: parseFloat(priceMatch[1]),
+          });
+        }
+      } catch (error) {
+        console.error(`Failed to get product ${item.productId}:`, error);
       }
     }
 

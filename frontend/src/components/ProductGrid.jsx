@@ -33,7 +33,7 @@ function ProductGrid({ products, loading, onAddToCart }) {
                 disabled={product.stock === 0}
                 className={`transition-colors ${
                   product.stock > 0
-                    ? "text-primary hover:text-primary/70"
+                    ? "text-primary hover:text-primary/70 cursor-pointer"
                     : "text-dark/20 cursor-not-allowed"
                 }`}
               >
