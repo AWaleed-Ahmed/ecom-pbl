@@ -112,7 +112,7 @@ function CartSidebar({
                     ${cartTotal.toFixed(2)}
                   </span>
                 </div>
-                <button className="w-full bg-primary hover:bg-primary/90 text-dark font-bold py-3 rounded transition-all">
+                <button className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 rounded transition-all">
                   CHECKOUT
                 </button>
               </div>

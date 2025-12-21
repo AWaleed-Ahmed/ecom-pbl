@@ -26,14 +26,16 @@ int main(int argc, char *argv[])
     bst productCatalog;
     OrderQueue orderQueue;
     graph recommendationGraph;
+    UserManager userManager;
 
     // Load existing data
-    productCatalog.loadFromCSV("../data/products.csv");
+    productCatalog.loadProducts("../../data/products.csv");
+    userManager.loadUsers("../../data/users.csv");
 
     // Command handling
     if (command == "list-products")
     {
-        cout << productCatalog.inorder(nullptr);
+        cout << productCatalog.inorder();
     }
     else if (command == "add-product" && argc >= 6)
     {
@@ -42,8 +44,8 @@ int main(int argc, char *argv[])
         double price = stod(argv[4]);
         int stock = stoi(argv[5]);
 
-        productCatalog.insertproduct(id, name, stock, price);
-        productCatalog.saveToCSV("../data/products.csv");
+        productCatalog.insert(id, name, price, stock);
+        productCatalog.saveProducts("../data/products.csv");
 
         cout << "Product added successfully" << endl;
     }
@@ -62,8 +64,8 @@ int main(int argc, char *argv[])
     else if (command == "remove-product" && argc >= 3)
     {
         int id = stoi(argv[2]);
-        productCatalog.removeproduct(id);
-        productCatalog.saveToCSV("../data/products.csv");
+        productCatalog.remove(id);
+        productCatalog.saveProducts("../data/products.csv");
 
         cout << "Product removed successfully" << endl;
     }
@@ -78,6 +80,80 @@ int main(int argc, char *argv[])
             cout << id << " ";
         }
         cout << endl;
+    }
+    else if (command == "get-cart" && argc >= 3)
+    {
+        int userId = stoi(argv[2]);
+        User *user = userManager.getUser(userId);
+
+        if (!user)
+        {
+            cout << "User not found" << endl;
+            return 1;
+        }
+
+        user->cart.viewCart();
+    }
+    else if (command == "add-to-cart" && argc >= 4)
+    {
+        int userId = stoi(argv[2]);
+        int productId = stoi(argv[3]);
+        int quantity = (argc >= 5) ? stoi(argv[4]) : 1;
+
+        User *user = userManager.getUser(userId);
+
+        if (!user)
+        {
+            cout << "User not found" << endl;
+            return 1;
+        }
+
+        user->cart.addItem(productId, quantity);
+        cout << "Item added to cart successfully" << endl;
+    }
+    else if (command == "remove-from-cart" && argc >= 4)
+    {
+        int userId = stoi(argv[2]);
+        int productId = stoi(argv[3]);
+
+        User *user = userManager.getUser(userId);
+
+        if (!user)
+        {
+            cout << "User not found" << endl;
+            return 1;
+        }
+
+        user->cart.removeItem(productId);
+        cout << "Item removed from cart successfully" << endl;
+    }
+    else if (command == "clear-cart" && argc >= 3)
+    {
+        int userId = stoi(argv[2]);
+        User *user = userManager.getUser(userId);
+
+        if (!user)
+        {
+            cout << "User not found" << endl;
+            return 1;
+        }
+
+        user->cart.clear();
+        cout << "Cart cleared successfully" << endl;
+    }
+    else if (command == "cart-total" && argc >= 3)
+    {
+        int userId = stoi(argv[2]);
+        User *user = userManager.getUser(userId);
+
+        if (!user)
+        {
+            cout << "User not found" << endl;
+            return 1;
+        }
+
+        double total = user->cart.calculateTotal(productCatalog);
+        cout << "Total: " << total << endl;
     }
     else
     {

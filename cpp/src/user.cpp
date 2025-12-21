@@ -73,7 +73,7 @@ void UserManager::addUser(User u)
     newNode->next = hashTable[index];
     hashTable[index] = newNode;
     count++;
-    std::cout << "User added successfully (Hash index: " << index << ")\n";
+    // std::cout << "User added successfully (Hash index: " << index << ")\n";
 }
 
 User *UserManager::getUser(int id)

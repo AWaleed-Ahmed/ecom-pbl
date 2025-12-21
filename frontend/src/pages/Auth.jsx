@@ -24,15 +24,17 @@ function Auth({ onAuthSuccess }) {
     }
 
     try {
-      // Auto-generate userId
-      const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+      // Fetch existing users from backend to get max ID
+      const { data: existingUsers } = await axios.get(
+        "http://localhost:3000/api/users"
+      );
       const maxId =
-        storedUsers.length > 0
-          ? Math.max(...storedUsers.map((u) => u.userId))
+        existingUsers.length > 0
+          ? Math.max(...existingUsers.map((u) => u.userId))
           : 0;
       const newUserId = maxId + 1;
 
-      await axios.post("http://localhost:3000/api/users", {
+      const response = await axios.post("http://localhost:3000/api/users", {
         userId: newUserId,
         name: formData.name,
         email: formData.email,
@@ -44,27 +46,31 @@ function Auth({ onAuthSuccess }) {
         email: formData.email,
       };
 
-      const updatedUsers = [...storedUsers, newUser];
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
       localStorage.setItem("currentUser", JSON.stringify(newUser));
-
       onAuthSuccess(newUser);
     } catch (error) {
-      setError("Failed to create account");
+      setError(error.response?.data?.error || "Failed to create account");
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLogin = () => {
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    if (storedUsers.length === 0) {
-      setError("No users found. Please create an account.");
-      return;
+  const handleLogin = async () => {
+    try {
+      const { data: users } = await axios.get(
+        "http://localhost:3000/api/users"
+      );
+      if (users.length === 0) {
+        setError("No users found. Please create an account.");
+        return;
+      }
+      setExistingUsers(users);
+      setShowUserList(true);
+    } catch (error) {
+      setError("Failed to load users");
+      console.error(error);
     }
-    setExistingUsers(storedUsers);
-    setShowUserList(true);
   };
 
   const handleUserSelect = (user) => {
@@ -75,7 +81,7 @@ function Auth({ onAuthSuccess }) {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Background Color */}
-      <div className="flex-1 bg-background relative flex items-center justify-center p-12">
+      <div className="flex-1 bg-[#F2F0E6] relative flex items-center justify-center p-12">
         <div className="max-w-md w-full">
           <h1 className="text-6xl font-bold text-dark mb-4 tracking-tight">
             MOSS
@@ -100,19 +106,6 @@ function Auth({ onAuthSuccess }) {
         </div>
 
         {/* Wavy Border */}
-        <div className="absolute right-0 top-0 bottom-0 w-24">
-          <svg
-            className="w-full h-full"
-            viewBox="0 0 100 800"
-            preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0,0 Q50,100 0,200 T0,400 T0,600 T0,800 L100,800 L100,0 Z"
-              fill="#F2F0E6"
-            />
-          </svg>
-        </div>
       </div>
 
       {/* Right Side - Dark Color */}
@@ -141,13 +134,13 @@ function Auth({ onAuthSuccess }) {
                 <div className="space-y-4">
                   <button
                     onClick={handleLogin}
-                    className="w-full bg-primary hover:bg-primary/90 text-dark font-bold py-4 rounded-lg transition-all"
+                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 rounded-lg transition-all"
                   >
                     SELECT EXISTING USER
                   </button>
                   <button
                     onClick={() => setIsLogin(false)}
-                    className="w-full bg-background/10 hover:bg-background/20 text-background font-bold py-4 rounded-lg transition-all border border-background/20"
+                    className="w-full bg-background/10 hover:bg-background/20 text-background font-medium py-4 rounded-lg transition-all border border-background/20"
                   >
                     CREATE NEW ACCOUNT
                   </button>
@@ -189,7 +182,7 @@ function Auth({ onAuthSuccess }) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary hover:bg-primary/90 text-dark font-bold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-6"
                   >
                     {loading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
                   </button>

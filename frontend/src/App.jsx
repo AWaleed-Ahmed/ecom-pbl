@@ -21,10 +21,30 @@ function App() {
     // Check for stored user
     const storedUser = localStorage.getItem("currentUser");
     if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
+      const user = JSON.parse(storedUser);
+      setCurrentUser(user);
       setIsAuthenticated(true);
+      loadCart(user.userId);
     }
   }, []);
+
+  const loadCart = async (userId) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/api/cart/${userId}`
+      );
+      // Convert backend cart format to frontend format
+      const cartItems = data.items.map((item) => ({
+        id: item.productId,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      }));
+      setCart(cartItems);
+    } catch (error) {
+      console.error("Failed to load cart:", error);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -37,23 +57,53 @@ function App() {
     }
   };
 
-  const addToCart = (product) => {
-    const existingItem = cart.find((item) => item.id === product.id);
-    if (existingItem) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
+  const addToCart = async (product) => {
+    if (!currentUser) return;
+
+    try {
+      // Update backend
+      await axios.post(
+        `http://localhost:3000/api/cart/${currentUser.userId}/add`,
+        {
+          productId: product.id,
+          quantity: 1,
+          name: product.name,
+          price: product.price,
+        }
       );
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+
+      // Update local state
+      const existingItem = cart.find((item) => item.id === product.id);
+      if (existingItem) {
+        setCart(
+          cart.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        );
+      } else {
+        setCart([...cart, { ...product, quantity: 1 }]);
+      }
+    } catch (error) {
+      console.error("Failed to add to cart:", error);
     }
   };
 
-  const removeFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
+  const removeFromCart = async (productId) => {
+    if (!currentUser) return;
+
+    try {
+      // Update backend
+      await axios.delete(
+        `http://localhost:3000/api/cart/${currentUser.userId}/remove/${productId}`
+      );
+
+      // Update local state
+      setCart(cart.filter((item) => item.id !== productId));
+    } catch (error) {
+      console.error("Failed to remove from cart:", error);
+    }
   };
 
   const updateQuantity = (productId, change) => {
@@ -73,6 +123,7 @@ function App() {
   const handleUserSelect = (user) => {
     setCurrentUser(user);
     setIsAuthenticated(true);
+    loadCart(user.userId);
   };
 
   const handleLogout = () => {
