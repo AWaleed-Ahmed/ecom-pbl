@@ -49,6 +49,13 @@ int main(int argc, char *argv[])
         double price = stod(argv[4]);
         int stock = stoi(argv[5]);
 
+        // Check if product with this ID already exists
+        if (productCatalog.search(id))
+        {
+            cout << "Error: Product with ID " << id << " already exists" << endl;
+            return 1;
+        }
+
         productCatalog.insert(id, name, price, stock);
         productCatalog.saveProducts("../../data/products.csv");
 

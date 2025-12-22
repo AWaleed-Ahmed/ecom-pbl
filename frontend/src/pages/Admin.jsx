@@ -30,6 +30,18 @@ function Admin({ onBack }) {
     e.preventDefault();
     setLoading(true);
 
+    // Check if product ID already exists
+    const existingProduct = products.find(
+      (p) => p.id === parseInt(newProduct.id)
+    );
+    if (existingProduct) {
+      alert(
+        `Product ID ${newProduct.id} already exists! Please use a different ID.`
+      );
+      setLoading(false);
+      return;
+    }
+
     try {
       await axios.post("http://localhost:3000/api/products", {
         id: parseInt(newProduct.id),
@@ -101,7 +113,7 @@ function Admin({ onBack }) {
         {showAddForm && (
           <div className="bg-white p-6 mb-8 border border-dark/10">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-dark">ADD NEW PRODUCT</h2>
+              <h2 className="text-2xl text-dark">ADD NEW PRODUCT</h2>
               <button
                 onClick={() => setShowAddForm(false)}
                 className="text-dark/60 hover:text-primary cursor-pointer"
@@ -181,7 +193,7 @@ function Admin({ onBack }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-primary text-dark px-8 py-3 font-bold hover:bg-primary/90 transition-colors disabled:opacity-50 cursor-pointer"
+                className="bg-dark text-background font-mono px-8 py-2 hover:text-primary/90 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {loading ? "ADDING..." : "ADD PRODUCT"}
               </button>
