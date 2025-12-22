@@ -66,6 +66,19 @@ int main(int argc, char *argv[])
             cout << "Product not found" << endl;
         }
     }
+    else if (command == "search-by-name" && argc >= 3)
+    {
+        string query = argv[2];
+        string results = productCatalog.searchByName(query);
+        if (results.empty())
+        {
+            cout << "No products found" << endl;
+        }
+        else
+        {
+            cout << results;
+        }
+    }
     else if (command == "remove-product" && argc >= 3)
     {
         int id = stoi(argv[2]);

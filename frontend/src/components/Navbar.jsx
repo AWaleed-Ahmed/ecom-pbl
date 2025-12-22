@@ -1,12 +1,30 @@
-import { LogOut, User } from "lucide-react";
+import { LogOut, User, Search } from "lucide-react";
 
-function Navbar({ cartCount, currentUser, onCartClick, onLogout }) {
+function Navbar({
+  cartCount,
+  currentUser,
+  onCartClick,
+  onLogout,
+  searchQuery,
+  onSearchChange,
+}) {
   return (
     <nav className="bg-white sticky top-0 z-50">
       <div className="container mx-auto py-4 flex items-center justify-between border-b-2 border-b-dark/10">
         <h1 className="text-3xl font-bold text-dark tracking-tight">MOSS</h1>
 
         <div className="flex items-center gap-6">
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-dark/40" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder="Search products..."
+              className="pl-10 pr-4 py-2 border border-dark/20 focus:outline-none focus:border-primary transition-colors w-64"
+            />
+          </div>
           {currentUser && (
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 text-dark">

@@ -167,7 +167,7 @@ function CartSidebar({
                 </div>
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 transition-all cursor-pointer"
+                  className="w-full bg-primary font-mono hover:bg-primary/90 text-white font-medium py-2 transition-all cursor-pointer"
                 >
                   CHECKOUT
                 </button>

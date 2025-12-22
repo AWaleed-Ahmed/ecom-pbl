@@ -296,3 +296,37 @@ void bst::loadProducts(const string &filename)
 
     file.close();
 }
+
+// Search products by name (case-insensitive partial match)
+void bst::searchByNameHelper(node *parent, const string &query, string &results)
+{
+    if (!parent)
+        return;
+
+    searchByNameHelper(parent->left, query, results);
+
+    // Convert both strings to lowercase for case-insensitive comparison
+    string lowerName = parent->name;
+    string lowerQuery = query;
+    for (char &c : lowerName)
+        c = tolower(c);
+    for (char &c : lowerQuery)
+        c = tolower(c);
+
+    if (lowerName.find(lowerQuery) != string::npos)
+    {
+        results += to_string(parent->id) + "|" +
+                   parent->name + "|" +
+                   to_string(parent->price) + "|" +
+                   to_string(parent->stock) + "\n";
+    }
+
+    searchByNameHelper(parent->right, query, results);
+}
+
+string bst::searchByName(const string &query)
+{
+    string results = "";
+    searchByNameHelper(root, query, results);
+    return results;
+}

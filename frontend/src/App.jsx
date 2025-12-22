@@ -16,6 +16,8 @@ function App() {
   const [showCart, setShowCart] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     fetchProducts();
@@ -29,6 +31,30 @@ function App() {
       loadCart(user.userId);
     }
   }, []);
+
+  // Search products when query changes
+  useEffect(() => {
+    const searchProducts = async () => {
+      if (!searchQuery.trim()) {
+        setFilteredProducts(products);
+        return;
+      }
+
+      try {
+        const { data } = await axios.get(
+          `http://localhost:3000/api/search?query=${encodeURIComponent(
+            searchQuery
+          )}`
+        );
+        setFilteredProducts(data.products);
+      } catch (error) {
+        console.error("Failed to search products:", error);
+        setFilteredProducts([]);
+      }
+    };
+
+    searchProducts();
+  }, [searchQuery, products]);
 
   const loadCart = async (userId) => {
     try {
@@ -53,6 +79,7 @@ function App() {
     try {
       const { data } = await axios.get("http://localhost:3000/api/products");
       setProducts(data);
+      setFilteredProducts(data);
       setLoading(false);
     } catch (error) {
       console.error("Failed to fetch products:", error);
@@ -156,6 +183,8 @@ function App() {
         currentUser={currentUser}
         onCartClick={() => setShowCart(!showCart)}
         onLogout={handleLogout}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
       />
 
       <CartSidebar
@@ -172,7 +201,7 @@ function App() {
 
       <main className="container mx-auto pb-16">
         <ProductGrid
-          products={products}
+          products={filteredProducts}
           loading={loading}
           onAddToCart={addToCart}
         />

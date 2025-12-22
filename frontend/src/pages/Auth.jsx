@@ -134,13 +134,13 @@ function Auth({ onAuthSuccess }) {
                 <div className="space-y-4">
                   <button
                     onClick={handleLogin}
-                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-4 rounded-lg transition-all cursor-pointer"
+                    className="w-full bg-primary hover:bg-primary/90 text-dark font-medium py-3 transition-all font-mono cursor-pointer"
                   >
                     SELECT EXISTING USER
                   </button>
                   <button
                     onClick={() => setIsLogin(false)}
-                    className="w-full bg-background/10 hover:bg-background/20 text-background font-medium py-4 rounded-lg transition-all border border-background/20 cursor-pointer"
+                    className="w-full bg-background/10 hover:bg-background/20 text-background font-medium py-3 font-mono transition-all border border-background/20 cursor-pointer"
                   >
                     CREATE NEW ACCOUNT
                   </button>
