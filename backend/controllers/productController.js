@@ -136,35 +136,46 @@ export const getProductById = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
-  const { id, name, price, stock } = req.body;
+  try {
+    const { id, name, price, stock } = req.body;
 
-  if (USE_CPP) {
-    try {
-      await runCppProgram([
-        "add-product",
-        id.toString(),
-        name,
-        price.toString(),
-        stock.toString(),
-      ]);
-      res.json({ success: true, message: "Product added successfully" });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Failed to add product", details: error.message });
+    if (!id || !name || !price || !stock) {
+      return res.status(400).json({ error: "All fields are required" });
     }
-  } else {
-    // Fallback: Write to CSV
-    const productsFile = path.join(DATA_DIR, "products.csv");
-    const newProduct = `\n${id},${name},${price},${stock}`;
 
-    if (!fs.existsSync(productsFile)) {
-      fs.writeFileSync(productsFile, "ID,Name,Price,Stock" + newProduct);
-    } else {
-      fs.appendFileSync(productsFile, newProduct);
-    }
+    await runCppProgram([
+      "add-product",
+      id.toString(),
+      name,
+      price.toString(),
+      stock.toString(),
+    ]);
 
     res.json({ success: true, message: "Product added successfully" });
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to add product", details: error.message });
+  }
+};
+
+export const removeProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ error: "Product ID is required" });
+    }
+
+    await runCppProgram(["remove-product", id]);
+
+    res.json({ success: true, message: "Product removed successfully" });
+  } catch (error) {
+    console.error("Error removing product:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to remove product", details: error.message });
   }
 };
 
@@ -186,12 +197,10 @@ export const getRecommendations = async (req, res) => {
         recommendations: recommendations,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Failed to get recommendations",
-          details: error.message,
-        });
+      res.status(500).json({
+        error: "Failed to get recommendations",
+        details: error.message,
+      });
     }
   } else {
     // Fallback: Mock data

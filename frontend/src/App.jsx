@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 import SaleBanner from "./components/SaleBanner";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -18,6 +19,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -174,6 +176,11 @@ function App() {
     return <Auth onAuthSuccess={handleUserSelect} />;
   }
 
+  // Show admin panel if requested (only for user ID 1 - Alex Adams)
+  if (showAdminPanel && currentUser?.userId === 1) {
+    return <Admin onBack={() => setShowAdminPanel(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <SaleBanner />
@@ -185,6 +192,8 @@ function App() {
         onLogout={handleLogout}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        onAdminClick={() => setShowAdminPanel(true)}
+        isAdmin={currentUser?.userId === 1}
       />
 
       <CartSidebar

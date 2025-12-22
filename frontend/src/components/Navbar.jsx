@@ -1,4 +1,4 @@
-import { LogOut, User, Search } from "lucide-react";
+import { LogOut, User, Search, Shield } from "lucide-react";
 
 function Navbar({
   cartCount,
@@ -7,6 +7,8 @@ function Navbar({
   onLogout,
   searchQuery,
   onSearchChange,
+  onAdminClick,
+  isAdmin,
 }) {
   return (
     <nav className="bg-white sticky top-0 z-50">
@@ -33,6 +35,17 @@ function Navbar({
                   {currentUser.name}
                 </span>
               </div>
+
+              {isAdmin && (
+                <button
+                  onClick={onAdminClick}
+                  className="text-dark/60 hover:text-primary transition-colors cursor-pointer"
+                  title="Admin Panel"
+                >
+                  <Shield className="w-5 h-5" />
+                </button>
+              )}
+
               <button
                 onClick={onLogout}
                 className="text-dark/60 hover:text-primary transition-colors cursor-pointer"

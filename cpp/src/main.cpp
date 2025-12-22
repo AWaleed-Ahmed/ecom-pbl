@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
         int stock = stoi(argv[5]);
 
         productCatalog.insert(id, name, price, stock);
-        productCatalog.saveProducts("../data/products.csv");
+        productCatalog.saveProducts("../../data/products.csv");
 
         cout << "Product added successfully" << endl;
     }
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     {
         int id = stoi(argv[2]);
         productCatalog.remove(id);
-        productCatalog.saveProducts("../data/products.csv");
+        productCatalog.saveProducts("../../data/products.csv");
 
         cout << "Product removed successfully" << endl;
     }
